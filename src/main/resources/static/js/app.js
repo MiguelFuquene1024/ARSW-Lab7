@@ -1,85 +1,86 @@
-
-const app = (function(){
+const app = (function () {
     let author;
-    let bluePrint;
-    
-    function getName(){
-        $("#nombreAutor").text(author+"'s "+"bluprints:");
+    let blueprintName;
+
+    function getName() {
+        $("#nombreAutor").text(author + "'s " + "blueprints:");
     }
-    function getBluePrint(){
-        $("nombreBluePrint").text("Current blueprint: " + blueprint);
+
+    function getBluePrintName() {
+        $("#nombreActual").text("Current blueprint: " + blueprintName);
     }
-    
-    function getAuthorBlueprints(){
+
+    function getNameAuthorBlueprints() {
         author = $("#author").val();
-        if(author === ""){
+        if (author === "") {
             alert("Debe ingresar un nombre !");
-        }else{
-            apimock.getBlueprintsByAuthor(author, (req, resp)=>{
-                
+        } else {
+            apiclient.getBlueprintsByAuthor(author, (req, resp) => {
+                añadirData(resp);
             });
         }
     }
-    
-    function añadirData(data){
-        $("#blueprintsTable tbody").empty();
-        
-        if(data === undefined){
-            alert("No existe este autor ni su blueprint");
+
+    function añadirData(data) {
+        $("#blueprintsTable tablebody").empty();
+
+        if (data === undefined) {
+            alert("No existe el autor!");
             $("#nombreAutor").empty();
             $("#userPoints").empty();
-        }else{
+        } else {
             getName();
-            const datanew = data.map((elemento)=>{
-                return{
-                    name:elemento.name,
-                    puntos:elemento.points.length
+            const datanew = data.map((elemento) => {
+                return {
+                    name: elemento.name,
+                    puntos: elemento.points.length
                 }
             });
-            datanew.map((elementos)=>{
-                $("#blueprintsTable > tablebody:last").append($("<tr><td>" +elementos.name + "</td><td>" + elementos.puntos.toString() + "</td><td>" + "<button id=" + elementos.name + " onclick=app.getBlueprintByAuthorAndName(this)>open</button>" + "</td>"));
+
+            datanew.map((elementos) => {
+                $("#blueprintsTable > tablebody:last").append($("<tr><td>" + elementos.name + "</td><td>" + elementos.puntos.toString() +
+                    "</td><td>" + "<button  id=" + elementos.name + " onclick=app.getBlueprintByAuthorAndName(this)>open</button>" + "</td>"));
             });
-            
-            const puntosTotales = datanew.reduce((suma,{puntos})=> suma + puntos,0);
-            
-            $("#userPoints").text(puntostotales);
+
+            const totalPuntos = datanew.reduce((suma, {puntos}) => suma + puntos, 0);
+
+            $("#userPoints").text(totalPuntos);
         }
     }
+
     function getBlueprintByAuthorAndName(data) {
         author = $("#author").val();
         blueprintName = data.id;
-        apimock.getBlueprintsByNameAndAuthor(blueprintName, author, (req, resp) => {
+        apiclient.getBlueprintsByNameAndAuthor(blueprintName, author, (req, resp) => {
             pintaData(resp);
         });
     }
 
-    function pintarData(data) {
+    function pintaData(data) {
         getBluePrintName();
         const puntos = data.points;
-        var c = document.getElementById("Canvas");
-        var c2d= c.getContext("2d");
-        c2d.clearRect(0, 0, c.width, c.height);
-        c2d.restore();
-        c2d.beginPath();
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.restore();
+        ctx.beginPath();
         for (let i = 1; i < puntos.length; i++) {
-            c2d.moveTo(puntos[i - 1].x, puntos[i - 1].y);
-            c2d.lineTo(puntos[i].x, puntos[i].y);
+            ctx.moveTo(puntos[i - 1].x, puntos[i - 1].y);
+            ctx.lineTo(puntos[i].x, puntos[i].y);
             if (i === puntos.length - 1) {
-                c2d.moveTo(puntos[i].x, puntos[i].y);
-                c2d.lineTo(puntos[0].x, puntos[0].y);
+                ctx.moveTo(puntos[i].x, puntos[i].y);
+                ctx.lineTo(puntos[0].x, puntos[0].y);
             }
         }
-        c2d.stroke();
+        ctx.stroke();
     }
 
 
     return {
 
-        getAuthorBlueprints: getAuthorBlueprints,
+        getNameAuthorBlueprints: getNameAuthorBlueprints,
         getBlueprintByAuthorAndName: getBlueprintByAuthorAndName
 
     }
 
 })();
-
-

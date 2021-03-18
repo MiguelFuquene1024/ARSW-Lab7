@@ -28,7 +28,7 @@ pre {
     font-family: monospace, monospace; /* 1 */
     font-size: 1em; /* 2 */
   }
-clr {
+a {
     background-color: transparent;
   }
 abbr[title] {
@@ -60,7 +60,7 @@ code,
     bottom: -0.25em;
   }
   
-  sup {
+ sup {
     top: -0.5em;
   }
  img {

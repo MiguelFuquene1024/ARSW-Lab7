@@ -11,30 +11,30 @@ h1 {
     font-size: 50px;
 }
 
-.PrincipalContainer {
+.principalContainer {
     display: flex;
 }
 
 
-.UpperContainer p {
+.upperContainer p {
     display: inline-block;
     padding-right: 40px;
     font-size: 25px;
     margin-left: 40px;
 }
 
-.UpperContainer input {
+.upperContainer input {
     background: lightgrey;
     transition: all 1s;
     padding: 2px;
     margin-right: 20px;
 }
 
-.UpperContainer input:focus {
+.upperContainer input:focus {
     background: white;
 }
 
-.UpperContainer button {
+.upperContainer button {
     cursor: pointer;
     margin: 30px;
     width: 200px;
@@ -44,7 +44,7 @@ h1 {
     transition: all .4s;
 }
 
-.UpperContainer button:hover {
+.upperContainer button:hover {
     background: rgb(84, 207, 35);
     color: black;
 }
@@ -73,7 +73,7 @@ h1 {
     text-align: center;
 }
 
-tablehead {
+thead {
     border: 2px solid black;
     background: grey;
     color: black;
@@ -83,7 +83,7 @@ th, tr, td {
     border: 2px solid black;
 }
 
-tablebody {
+tbody {
     border: 2px solid black;
     background: lightgrey;
     color: black;

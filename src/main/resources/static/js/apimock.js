@@ -70,7 +70,7 @@ var apimock = (function () {
                 {
                     x: 80,
                     y: 90
-                },
+                }
             ]
         }
     ]
@@ -90,7 +90,7 @@ var apimock = (function () {
                 {
                     x: 30,
                     y: 20
-                },
+                }
             ]
         }
     ]
@@ -118,7 +118,7 @@ var apimock = (function () {
                 {
                     x: 40,
                     y: 95
-                },
+                }
             ]
         }
     ]
@@ -129,8 +129,8 @@ var apimock = (function () {
         },
 
         getBlueprintsByNameAndAuthor: function(name, author, callback) {
-            blueprint = mockdata[author].find(function(blueprint) {
-                return blueprint.name == name
+            let blueprint = mockdata[author].find(function(blueprint) {
+                return blueprint.name === name
             });
             callback(null, blueprint)
         }
